@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Category = () => {
+const Category = ({setCategories}) => {
   const [categoryDataForm, setCategoryDataForm] = useState({
     title: "",
     description: "",
@@ -14,12 +14,11 @@ const Category = () => {
     e.preventDefault();
     setIsShow(false);
   };
-  const [categories, setCategories] = useState([]);
   const addNewCategoryHandler = (e) => {
     e.preventDefault();
-    setCategories([
-      ...categories,
-      { ...categoryDataForm, createdAt: new Date().toISOString() },
+    setCategories((prevState)=>[
+      ...prevState,
+      { ...categoryDataForm, createdAt: new Date().toISOString(),id:new Date().getTime() },
     ]);
     setCategoryDataForm({title:"",description:""});
   };
