@@ -5,14 +5,23 @@ const Category = () => {
     title: "",
     description: "",
   });
-  const categoryChangeHandler=(e)=>{
-    const {name,value}=e.target;
-setCategoryDataForm({...categoryDataForm,[name]:value})
-}
+  const categoryChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setCategoryDataForm({ ...categoryDataForm, [name]: value });
+  };
   const [isShow, setIsShow] = useState(false);
   const cancelFormHandler = (e) => {
     e.preventDefault();
     setIsShow(false);
+  };
+  const [categories, setCategories] = useState([]);
+  const addNewCategoryHandler = (e) => {
+    e.preventDefault();
+    setCategories([
+      ...categories,
+      { ...categoryDataForm, createdAt: new Date().toISOString() },
+    ]);
+    setCategoryDataForm({title:"",description:""});
   };
   return (
     <section>
@@ -62,6 +71,7 @@ setCategoryDataForm({...categoryDataForm,[name]:value})
             <button
               id="add-new-category"
               className="flex-1 bg-rose-500 text-rose-200 rounded-xl py-2"
+              onClick={addNewCategoryHandler}
             >
               Add Category
             </button>
